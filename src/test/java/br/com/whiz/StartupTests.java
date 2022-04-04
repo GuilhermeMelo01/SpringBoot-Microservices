@@ -1,4 +1,4 @@
-package br.com.whiz.foo;
+package br.com.whiz;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,5 +1,6 @@
 package br.com.whiz.foo;
 
+import br.com.whiz.foo.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,17 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class MathController {
 
     @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method=RequestMethod.GET)
-    public java.lang.Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) throws Exception {
+    public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) throws UnsupportedMathOperationException {
         if (!isNumeric(numberOne) || !isNumeric(numberTwo)){
-            throw new Exception();
+            throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
+
     }
 
-    private java.lang.Double convertToDouble(String strNumber) {
+    private Double convertToDouble(String strNumber) {
         if (strNumber == null) return 0D;
         String number = strNumber.replaceAll(",", ".");
-        if (isNumeric(number)) return java.lang.Double.parseDouble(number);
+        if (isNumeric(number)) return Double.parseDouble(number);
         return 0D;
     }
 
