@@ -1,4 +1,4 @@
-package br.com.whiz.foo.service;
+package br.com.whiz.foo.math;
 
 public class MathService {
 
