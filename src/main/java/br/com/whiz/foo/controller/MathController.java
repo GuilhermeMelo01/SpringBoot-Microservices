@@ -1,9 +1,10 @@
 package br.com.whiz.foo.controller;
 
-import br.com.whiz.foo.exception.UnsupportedMathOperationException;
 import br.com.whiz.foo.converters.MathConvert;
+import br.com.whiz.foo.exception.UnsupportedMathOperationException;
 import br.com.whiz.foo.exception.math.MathException;
 import br.com.whiz.foo.service.MathService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,14 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MathController {
-    MathService mathService = new MathService();
+    @Autowired
+    MathService mathService;
+    @Autowired
+    MathConvert mathConvert;
 
     @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method = RequestMethod.GET)
     public Double sum(@PathVariable("numberOne") String numberOne, @PathVariable("numberTwo") String numberTwo) {
 
         MathException.notNumeric(numberOne, numberTwo);
 
-        return mathService.sum(MathConvert.convertToDouble(numberOne), MathConvert.convertToDouble(numberTwo));
+        return mathService.sum(mathConvert.convertToDouble(numberOne), mathConvert.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/subtraction/{numberOne}/{numberTwo}", method = RequestMethod.GET)
@@ -26,7 +30,7 @@ public class MathController {
 
         MathException.notNumeric(numberOne, numberTwo);
 
-        return mathService.subtraction(MathConvert.convertToDouble(numberOne), MathConvert.convertToDouble(numberTwo));
+        return mathService.subtraction(mathConvert.convertToDouble(numberOne), mathConvert.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/multiplication/{numberOne}/{numberTwo}", method = RequestMethod.GET)
@@ -34,7 +38,7 @@ public class MathController {
 
         MathException.notNumeric(numberOne, numberTwo);
 
-        return mathService.multiplication(MathConvert.convertToDouble(numberOne), MathConvert.convertToDouble(numberTwo));
+        return mathService.multiplication(mathConvert.convertToDouble(numberOne), mathConvert.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/division/{numberOne}/{numberTwo}", method = RequestMethod.GET)
@@ -42,7 +46,7 @@ public class MathController {
 
         MathException.notNumeric(numberOne, numberTwo);
 
-        return mathService.division(MathConvert.convertToDouble(numberOne), MathConvert.convertToDouble(numberTwo));
+        return mathService.division(mathConvert.convertToDouble(numberOne), mathConvert.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/average/{numberOne}/{numberTwo}", method = RequestMethod.GET)
@@ -50,7 +54,7 @@ public class MathController {
 
         MathException.notNumeric(numberOne, numberTwo);
 
-        return mathService.average(MathConvert.convertToDouble(numberOne), MathConvert.convertToDouble(numberTwo));
+        return mathService.average(mathConvert.convertToDouble(numberOne), mathConvert.convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/squareRoot/{number}", method = RequestMethod.GET)
@@ -58,7 +62,7 @@ public class MathController {
 
         MathException.notNumeric(number);
 
-        return mathService.squareRoot(MathConvert.convertToDouble(number));
+        return mathService.squareRoot(mathConvert.convertToDouble(number));
     }
 
 

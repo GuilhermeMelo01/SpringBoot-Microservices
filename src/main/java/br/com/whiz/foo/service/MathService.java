@@ -1,5 +1,8 @@
 package br.com.whiz.foo.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MathService {
 
     public Double sum(Double numberOne, Double numberTwo) {
